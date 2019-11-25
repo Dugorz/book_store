@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <section class="product-sec">
+        <div class="container">
+            <h1>{{ object.name }}</h1>
+            <div class="row">
+                <div class="col-md-6 slider-sec">
+                    <!-- main slider carousel -->
+                    <div id="myCarousel" class="carousel slide">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner">
+                            <div class="active item carousel-item" data-slide-number="0">
+                                {% if object.cover %}<img src="{{ object.cover.url }}" class="img-fluid" alt="{{ object.name }}">{% endif %}
+                            </div>
+                            <div class="book_info" style="display:grid;">
+                                <span>Author: {{ object.author }}</span>
+                                <span>Publisher: {{ object.publisher }}</span>
+                                <span>ISBN: {{ object.isbn }}</span>
+                                <span>Pages: {{ object.pages }}</span>
+                            </div>
+                            <hr style="border-top: 5px solid rgba(255,165,0,.5);">
+                            <div class="book_cat">
+                                {% for foo in object.category.all %}
+                                    <span>{{ foo }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- main slider carousel nav controls -->
+                        {#                        <ul class="carousel-indicators list-inline">#}
+                        {#                            {% for image in book.images.all %}#}
+                        {#                                <li class="list-inline-item">#}
+                        {#                                    <a id="carousel-selector-0" class="selected" data-slide-to="0"#}
+                        {#                                       data-target="#myCarousel">#}
+                        {#                                        <img src="{{ image.book_preview.url }}" class="img-fluid">#}
+                        {#                                    </a>#}
+                        {#                                </li>#}
+                        {#                            {% endfor %}#}
+                        {#                        </ul>#}
+                    </div>
+                    <div class="input-group">
+                        <div class="form">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ review.as_p }}
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn black">Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--/main slider carousel-->
+                </div>
+                <div class="col-md-6 slider-content">
+                    <p>{{ object.description }}</p>
+                    <ul>
+                        <li>
+                            <span class="name">Price</span><span class="clm">:</span>
+                            <span class="price final">{{ object.price }}</span>
+                        </li>
+                    </ul>
+                    <div class="btn-sec">
+                        <button class="btn ">Add To cart</button>
+                        <button class="btn black">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="related-books">
+        <div class="container">
+            <h2>You may also like these book</h2>
+            <div class="recomended-sec">
+                <div class="row">
+                    {% for rec in rec_books %}
+                        <div class="col-lg-3 col-md-6">
+                            <div class="item">
+                                {% if rec.cover %}<img src="{{ rec.cover.url }}" alt="img">{% endif %}
+                                <h3>{{ rec.name }}</h3>
+                                <h6><span class="price">{{ rec.price }}</span> / <a href="#">Buy Now</a></h6>
+                                <div class="hover">
+                                    <a href="{{ rec.get_absolute_url }}"><span><i class="fa fa-long-arrow-right"
+                                                                                  aria-hidden="true"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
