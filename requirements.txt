@@ -4,7 +4,7 @@ bs4==0.0.1
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0
-Django==2.2.5
+Django==2.2.13
 django-js-asset==1.2.2
 django-summernote==0.8.11.4
 fake-useragent==0.1.11
